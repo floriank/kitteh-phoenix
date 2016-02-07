@@ -35,8 +35,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :kitteh, Kitteh.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "kitteh",
+  password: "kitteh",
   database: "kitteh_dev",
   hostname: "localhost",
   pool_size: 10

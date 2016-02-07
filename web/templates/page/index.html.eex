@@ -6,12 +6,15 @@
       </div>
       <div class="panel-body">
         <p>Upload a cat picture. Doggies are welcome, too.</p>
-        <form action="/upload" method="post" enctype="multipart/form-data" class="form">
+        <%= form_for @changeset, "/upload", [multipart: true], fn f ->  %>
           <div class="form-group">
-            <label for="image" class="control-label">Image</label>
-            <input type="file" id="image" name="image" class="form-control">
+            <label for="image_file" class="control-label">Image</label>
+            <%= file_input f, :file, required: true, accept: "image/*" %>
           </div>
-        </form>
+          <div class="form-group">
+            <%= submit "Upload", class: "btn btn-primary" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
