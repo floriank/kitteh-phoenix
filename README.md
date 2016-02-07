@@ -2,7 +2,7 @@
 
 This is a simple Phoenix project for demonstration purposes. It relates to the article series ["Using Phoenix with Docker"](https://floriank.github.io/post/using-phoenix-with-docker-part-1-introduction/). It's a simple image uploader that uses a PostgreSQL database for metadata about images and Phonix as web framework.
 
-Please visit [my blog](https://floriank.github.io) for more articles. If you don't feel like that, you can still browse the code here and maybe create some ppull requests to make it better.
+Please visit [my blog](https://floriank.github.io) for more articles. If you don't feel like that, you can still browse the code here and maybe create some pull requests to make it better.
 
 ## Instructions to run
 
