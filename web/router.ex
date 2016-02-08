@@ -17,6 +17,9 @@ defmodule Kitteh.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    post "/upload", PageController, :upload
+    get "/:name", PageController, :show
+    get "/img/:token", ImageController, :show
   end
 
   # Other scopes may use custom stacks.
