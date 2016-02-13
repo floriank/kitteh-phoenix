@@ -1,6 +1,6 @@
 defmodule Kitteh.Image do
   use Kitteh.Web, :model
-  alias Kitteh.Repo
+
   schema "images" do
     field :original_name, :string
     field :token, :string

@@ -33,7 +33,7 @@ defmodule Kitteh.PageController do
       { :ok, image } ->
         create_sizes(image)
         conn
-        |> redirect to: "/#{full_name(image)}"
+        |> redirect(to: "/#{full_name(image)}")
       { :error, changeset } ->
         conn
         |> put_flash(:error, "Error!")
@@ -97,7 +97,7 @@ defmodule Kitteh.PageController do
 
   defp resize(image, name, size) do
     new_path = target_path <> name <> Path.extname(image.path)
-    new_image = open(image.path) |> copy |> resize(size) |> save(new_path)
+    open(image.path) |> copy |> resize(size) |> save(new_path)
     %{
       generated_name: name,
       token: String.downcase(name),

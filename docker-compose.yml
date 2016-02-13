@@ -1,0 +1,26 @@
+# the database image
+db:
+  image: "postgres:9.4"
+  environment:
+    POSTGRES_USER: kitteh
+    POSTGRES_PASSWORD: kitteh
+    POSTGRES_DB: POSTGRES_DB
+  volumes_from:
+    - dbdata
+
+# for persistance of database data
+dbdata:
+  image: "postgres:9.4"
+  volumes:
+    - /var/lib/postgres
+  command: "true"
+
+# the main image, this is the application
+web:
+  build: "."
+  environment:
+    PORT: "4000"
+  ports:
+    - "4000:4000"
+  links:
+    - "db:db"
