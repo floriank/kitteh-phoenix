@@ -3,6 +3,8 @@ defmodule Kitteh.PageController do
   alias Kitteh.Repo
   alias Kitteh.Image
 
+  import Mogrify
+
   def index(conn, _params) do
     changeset = Image.changeset(%Image{})
     render conn, "index.html", changeset: changeset
@@ -31,7 +33,6 @@ defmodule Kitteh.PageController do
       { :ok, image } ->
         create_sizes(image)
         conn
-        |> put_flash(:info, "Uploaded")
         |> redirect to: "/#{full_name(image)}"
       { :error, changeset } ->
         conn
@@ -81,19 +82,29 @@ defmodule Kitteh.PageController do
 
   defp create_sizes(image) do
     sizes = %{ "Tiny" => "90", "Large" => "300", "Monstrous" => "600" }
-    original_file = image.path
     Enum.each sizes, fn({ label, size }) ->
       Task.start fn ->
         name = label <> image.generated_name
-        file_params = resize(image)
-          |> copy_file name
+        file_params = resize image, name, size
         changeset = Image.changeset(%Image{}, file_params)
-          |> Repo.insert
+        case Repo.insert(changeset) do
+          {:ok, image} -> resize(image, name, size)
+          {:error, error } -> IO.inspect error
+        end
       end
     end
   end
 
-  defp resize(image) do
-    image
+  defp resize(image, name, size) do
+    new_path = target_path <> name <> Path.extname(image.path)
+    new_image = open(image.path) |> copy |> resize(size) |> save(new_path)
+    %{
+      generated_name: name,
+      token: String.downcase(name),
+      path: new_path,
+      original_name: image.original_name,
+      content_type: image.content_type,
+      size: image.size
+    }
   end
 end
