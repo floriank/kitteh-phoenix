@@ -16,6 +16,12 @@ dbdata:
     - /var/lib/postgres
   command: "true"
 
+assets:
+  image: "busybox"
+  volumes:
+    - /var/uploads
+  command: "true"
+
 # the main image, this is the application
 web:
   build: "."
@@ -26,3 +32,5 @@ web:
     - "4000:4000"
   links:
     - "db:db"
+  volumes_from:
+    - assets
