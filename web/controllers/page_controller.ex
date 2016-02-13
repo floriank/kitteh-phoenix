@@ -29,6 +29,7 @@ defmodule Kitteh.PageController do
 
     case Repo.insert(changeset) do
       { :ok, image } ->
+        create_sizes(image)
         conn
         |> put_flash(:info, "Uploaded")
         |> redirect to: "/#{full_name(image)}"
@@ -43,9 +44,6 @@ defmodule Kitteh.PageController do
     "#{image.generated_name}#{image.type}"
   end
 
-  @doc """
-  Tries to assign a unique name into the changeset that does not exist in the database yet
-  """
   defp unique_name do
     name = Image.generate_unique_name
 
@@ -72,12 +70,30 @@ defmodule Kitteh.PageController do
           content_type: file.content_type,
           size: size
         }
-      { :error, _} ->
+      {:error, _} ->
         %{}
     end
   end
 
   defp target_path do
     Application.app_dir(:kitteh, "priv") <> "/static/uploads/"
+  end
+
+  defp create_sizes(image) do
+    sizes = %{ "Tiny" => "90", "Large" => "300", "Monstrous" => "600" }
+    original_file = image.path
+    Enum.each sizes, fn({ label, size }) ->
+      Task.start fn ->
+        name = label <> image.generated_name
+        file_params = resize(image)
+          |> copy_file name
+        changeset = Image.changeset(%Image{}, file_params)
+          |> Repo.insert
+      end
+    end
+  end
+
+  defp resize(image) do
+    image
   end
 end
