@@ -4,7 +4,7 @@ db:
   environment:
     POSTGRES_USER: kitteh
     POSTGRES_PASSWORD: kitteh
-    POSTGRES_DB: POSTGRES_DB
+    POSTGRES_DB: kitteh_prod
   volumes_from:
     - dbdata
 
