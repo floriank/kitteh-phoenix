@@ -33,6 +33,7 @@ defmodule Kitteh.PageController do
       { :ok, image } ->
         create_sizes(image)
         conn
+        |> put_flash(:info, "Uploaded")
         |> redirect(to: "/#{full_name(image)}")
       { :error, changeset } ->
         conn
@@ -76,8 +77,12 @@ defmodule Kitteh.PageController do
     end
   end
 
-  defp target_path do
-    Application.app_dir(:kitteh, "priv") <> "/static/uploads/"
+  def target_path do
+    if Mix.env == :prod do
+      "/var/uploads/"
+    else
+      Application.app_dir(:kitteh, "priv") <> "/static/uploads/"
+    end
   end
 
   defp create_sizes(image) do
