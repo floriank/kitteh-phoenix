@@ -16,5 +16,4 @@ ADD . /app
 WORKDIR /app
 RUN mix local.hex --force
 RUN mix deps.get --only-prod
-RUN mix compile
 CMD ["mix", "phoenix.server"]
