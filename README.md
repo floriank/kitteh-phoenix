@@ -6,6 +6,8 @@ Please visit [my blog](https://floriank.github.io) for more articles. If you don
 
 ## Instructions to run
 
+__Note__: ImageMagick is a hard dependency to this application.
+
 To start your this app:
 
   1. Install dependencies with `mix deps.get`
