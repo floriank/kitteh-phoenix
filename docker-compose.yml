@@ -1,36 +1,44 @@
-# the database image
-db:
-  image: "postgres:9.4"
-  environment:
-    POSTGRES_USER: kitteh
-    POSTGRES_PASSWORD: kitteh
-    # this is not used properly at the moment
-    POSTGRES_DB: kitteh_prod
-  volumes_from:
-    - dbdata
+version: "2"
+services:
+  # the database image
+  db:
+    image: "postgres:9.4"
+    environment:
+      POSTGRES_USER: kitteh
+      POSTGRES_PASSWORD: kitteh
+      # this is not used properly at the moment
+      POSTGRES_DB: kitteh_prod
+    volumes:
+      - dbdata:/var/lib/postgres
 
-# for persistance of database data
-dbdata:
-  image: "postgres:9.4"
-  volumes:
-    - /var/lib/postgres
-  command: "true"
+  # for serving assets
+  nginx:
+    build:
+      context: "."
+      dockerfile: "./Dockerfile.nginx"
+    volumes:
+      - assets:/var/uploads
+    ports:
+      - "4001:80"
 
-assets:
-  image: "busybox"
-  volumes:
-    - /var/uploads
-  command: "true"
+  # the main image, this is the application
+  web:
+    build: "."
+    environment:
+      PORT: "4000"
+      MIX_ENV: "prod"
+    ports:
+      - "4000:4000"
+    links:
+      - "db:db"
+    volumes:
+      - assets:/var/uploads
 
-# the main image, this is the application
-web:
-  build: "."
-  environment:
-    PORT: "4000"
-    MIX_ENV: "prod"
-  ports:
-    - "4000:4000"
-  links:
-    - "db:db"
-  volumes_from:
-    - assets
+volumes:
+  # for persistance of database data
+  dbdata:
+    driver: local
+
+  # for keeping assets
+  assets:
+    driver: local
