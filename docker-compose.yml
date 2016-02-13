@@ -4,6 +4,7 @@ db:
   environment:
     POSTGRES_USER: kitteh
     POSTGRES_PASSWORD: kitteh
+    # this is not used properly at the moment
     POSTGRES_DB: kitteh_prod
   volumes_from:
     - dbdata
@@ -20,6 +21,7 @@ web:
   build: "."
   environment:
     PORT: "4000"
+    MIX_ENV: "prod"
   ports:
     - "4000:4000"
   links:
