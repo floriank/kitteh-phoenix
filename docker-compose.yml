@@ -6,22 +6,32 @@ services:
     environment:
       POSTGRES_USER: kitteh
       POSTGRES_PASSWORD: kitteh
-      # this is not used properly at the moment
       POSTGRES_DB: kitteh_prod
     ports:
+      # maintenance port
       - "5433:5432"
     volumes:
       - dbdata:/var/lib/postgres
 
-  # for serving assets
-  nginx:
+  # for serving uploads
+  uploads:
     build:
       context: "."
-      dockerfile: "./Dockerfile.nginx"
+      dockerfile: "./Dockerfile.uploads"
     volumes:
-      - assets:/var/uploads
+      - uploads:/var/uploads
     ports:
       - "4001:80"
+
+  # for serving the assets
+  assets:
+    build:
+      context: "."
+      dockerfile: "./Dockerfile.assets"
+    volumes:
+      - assets:/var/assets
+    ports:
+      - "4002:80"
 
   # the main image, this is the application
   web:
@@ -34,13 +44,18 @@ services:
     links:
       - "db:db"
     volumes:
-      - assets:/var/uploads
+      - assets:/var/assets
+      - uploads:/var/uploads
 
 volumes:
   # for persistance of database data
   dbdata:
     driver: local
 
-  # for keeping assets
+  # for keeping uploads
+  uploads:
+    driver: local
+
+  # for storing the assets
   assets:
     driver: local
