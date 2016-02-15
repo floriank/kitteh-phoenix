@@ -2,6 +2,6 @@ defmodule Kitteh.PageView do
   use Kitteh.Web, :view
 
   def asset_url(image) do
-    "/img/" <> image.token
+    "http://localhost:4001/" <> Path.basename(image.path)
   end
 end
