@@ -22,10 +22,13 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 Make sure you'll have the following:
 
+- [node](https://nodejs.org) and `npm` for asset compilation
 - [docker engine 1.10](https://blog.docker.com/2016/02/docker-1-10/)
 - [docker-compose 1.6.0](https://github.com/docker/compose/releases)
 
 ```bash
+npm i
+./node_modules/.bin/brunch build --production
 docker-compose up
 ```
 
