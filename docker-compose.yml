@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: kitteh
       # this is not used properly at the moment
       POSTGRES_DB: kitteh_prod
+    ports:
+      - "5433:5432"
     volumes:
       - dbdata:/var/lib/postgres
 
