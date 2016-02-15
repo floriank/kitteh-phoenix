@@ -18,6 +18,19 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## Instructions to run via docker-compose
+
+Make sure you'll have the following:
+
+- [docker engine 1.10](https://blog.docker.com/2016/02/docker-1-10/)
+- [docker-compose 1.6.0](https://github.com/docker/compose/releases)
+
+```bash
+docker-compose up
+```
+
+should do the trick.
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
