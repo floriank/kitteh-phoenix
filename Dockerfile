@@ -4,6 +4,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV MIX_ENV prod
 
 # wget for convenience
 RUN apt-get -y -q install wget
@@ -16,4 +17,5 @@ ADD . /app
 WORKDIR /app
 RUN mix local.hex --force
 RUN mix deps.get --only-prod
+RUN mix compile
 CMD ["mix", "phoenix.server"]
