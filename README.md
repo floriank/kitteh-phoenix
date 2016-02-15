@@ -32,7 +32,14 @@ npm i
 docker-compose up
 ```
 
-should do the trick.
+should do the trick. Once the servers are running, use
+
+```bash
+docker-compose run web mix ecto.migrate
+docker-compose run web mix phoenix.digest -o /var/assets
+```
+
+to migrate the database and digest assets
 
 ## Learn more
 
