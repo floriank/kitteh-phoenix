@@ -14,6 +14,7 @@ use Mix.Config
 config :kitteh, Kitteh.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "example.com", port: 80],
+  static_url: [host: "localhost", port: 4002],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production

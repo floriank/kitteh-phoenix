@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <title>kitteh</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_url(@conn, "/css/app.css") %>">
   </head>
 
   <body>
@@ -23,6 +23,6 @@
       <%= @inner %>
 
     </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_url(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
