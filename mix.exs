@@ -18,7 +18,7 @@ defmodule Kitteh.Mixfile do
   def application do
     [mod: {Kitteh, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :mogrify]]
   end
 
   # Specifies which paths to compile per environment
@@ -35,6 +35,8 @@ defmodule Kitteh.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:mogrify, "~> 0.2"}]
+     {:mogrify, "~> 0.2"},
+     {:exrm, "~> 1.0"}
+   ]
   end
 end
