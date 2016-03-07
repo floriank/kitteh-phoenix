@@ -25,17 +25,13 @@ services:
 
   # for serving the assets
   assets:
-    build:
-      context: "."
-      dockerfile: "./Dockerfile.assets"
-    volumes:
-      - assets:/var/assets
+    image: "kitteh/assets:0.0.1"
     ports:
       - "4002:80"
 
   # the main image, this is the application
   web:
-    build: "."
+    image: "kitteh/web:0.0.1"
     environment:
       PORT: "4000"
       MIX_ENV: "prod"
@@ -44,7 +40,6 @@ services:
     links:
       - "db:db"
     volumes:
-      - assets:/var/assets
       - uploads:/var/uploads
 
 volumes:
@@ -54,8 +49,4 @@ volumes:
 
   # for keeping uploads
   uploads:
-    driver: local
-
-  # for storing the assets
-  assets:
     driver: local

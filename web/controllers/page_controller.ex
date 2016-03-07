@@ -78,7 +78,7 @@ defmodule Kitteh.PageController do
   end
 
   def target_path do
-    if Mix.env == :prod do
+    if System.get_env("MIX_ENV") == "prod" do
       "/var/uploads/"
     else
       Application.app_dir(:kitteh, "priv") <> "/static/uploads/"

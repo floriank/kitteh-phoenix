@@ -18,7 +18,18 @@ defmodule Kitteh do
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Kitteh.Supervisor]
-    Supervisor.start_link(children, opts)
+    res = Supervisor.start_link(children, opts)
+    if System.get_env("MIX_ENV") == "prod" do
+      migrate
+    end
+
+    res
+  end
+
+  defp migrate do
+    migrations = Path.join(["#{:code.priv_dir(:kitteh)}", "repo", "migrations"])
+    IO.puts "######### running migrations..."
+    Ecto.Migrator.run(Kitteh.Repo, migrations, :up, all: true)
   end
 
   # Tell Phoenix to update the endpoint configuration
