@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-RUN apk --update add erlang erlang-sasl erlang-crypto erlang-syntax-tools && rm -rf /var/cache/apk/*
+RUN apk --update add erlang erlang-sasl erlang-crypto erlang-syntax-tools imagemagick && rm -rf /var/cache/apk/*
 
 ENV APP_NAME kitteh
 ENV APP_VERSION "0.0.1"
