@@ -19,3 +19,14 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+function foo(b) {
+  a = 42
+  return a * b;
+}
+
+with(window) {
+  window.variable = foo(42);   
+}
+
+console.log(window);
