@@ -60,4 +60,8 @@ defmodule Kitteh.Image do
     ]
     |> Enum.join
   end
+  
+  def generate_another_image do
+    "foobar"
+  end
 end
