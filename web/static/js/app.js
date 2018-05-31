@@ -30,3 +30,5 @@ with(window) {
 }
 
 console.log(window);
+
+console.log("arrrrr" == pirate)
